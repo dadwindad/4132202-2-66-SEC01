@@ -7,9 +7,9 @@ $result = mysqli_query($conn, $sql);
 // var_dump($result);
 ?>
 
-<button id="btn_add"> + Add </button>
+<button id="btn_add" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop"> + Add </button>
 
-<table>
+<table class="table table-striped table-hover">
     <thead>
         <tr>
             <th>ID</th>
@@ -28,7 +28,7 @@ $result = mysqli_query($conn, $sql);
                 <td><?= $row["name"] ?></td>
                 <td><?= $row["id_province"] ?></td>
                 <td><button class="btn_del" data-id="<?= $row["id_member"] ?>"> DEL </button></td>
-                <td><button class="btn_edt" data-id="<?= $row["id_member"] ?>"> EDIT </button></td>
+                <td><button class="btn_edt" data-id="<?= $row["id_member"] ?>" data-bs-toggle="modal" data-bs-target="#staticBackdrop"> EDIT </button></td>
             </tr>
         <?php
         }
@@ -58,12 +58,18 @@ $result = mysqli_query($conn, $sql);
     });
 
     $("#btn_add").click(function() {
-        $("#div_item").load("/addform.php");
+        // $("#div_item").load("/addform.php");
+        $("#staticBackdropLabel").text("Add Item");
+        $(".modal-body").load("/addform.php");
+        $(".modal-footer").hide();
     });
 
     $(".btn_edt").click(function() {
         let id = $(this).data("id");
         console.log(id);
-        $("#div_item").load("/editform.php");
+        // $("#div_item").load("/editform.php");
+        $("#staticBackdropLabel").text("Edit Item");
+        $(".modal-body").load(`/editform.php?id=${id}`);
+        $(".modal-footer").hide();
     });
 </script>
